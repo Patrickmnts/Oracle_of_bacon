@@ -1,10 +1,15 @@
+# Needs to be refactored into files
+# Handle Spell Check case
+#
+
+
 require 'open-uri'
 require 'cgi'
 # require 'uri'
 # require 'net/http'
 
 def bacon
-  from = 'George Clooney'
+  from = 'Tina Turner'
   from_escape = CGI::escape(from)
   to = 'Kevin Bacon'
   to_escape = CGI::escape(to)
