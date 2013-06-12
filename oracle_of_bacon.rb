@@ -1,18 +1,20 @@
+require 'open-uri'
+require 'uri'
 require 'net/http'
 
 def bacon
-
-
-  from = URI('George Clooney')
-  to = URI('Kevin Bacon')
+  from = ('GeorgeClooney')
+  to = ('KevinBacon')
   #options are pre-determined by API call
-  option = URI(1)
+  option = (1)
   # 1 includes movies, 3 includes movies and tv
-  location = URI('google-aps')
 
+  uri = URI.parse("http://oracleofbacon.org/cgi-bin/xml?a=#{from}&b=#{to}&u=#{option}&p=google-apps")
+  response = Net::HTTP.get(uri)
+  #response = open("http://oracleofbacon.org/cgi-bin/xml?a=#{from}&b=#{to}&u=#{option}&p=#{location}").read
 
-  parameters = ({method: => 'post', payload: => "a=#{from}&b=#{to}&u=#{option}&p=#{location}",
-    })
-  response = http://
+  puts response
 
 end
+
+bacon
