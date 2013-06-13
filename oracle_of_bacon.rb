@@ -1,28 +1,24 @@
 # Needs to be refactored into files
 # Handle Spell Check case
-#
+#<link><actor>Kevin Bacon</actor><movie>JFK (1991)</movie><actor>Kevin Costner</actor></link>
+
+require './api.rb'
 
 
-require 'open-uri'
-require 'cgi'
-# require 'uri'
-# require 'net/http'
+module Oracle
+  def self.degrees
+    from = 'Kevin Cost'
+    from_escape = API.escape(from)
+    to = 'Kevin Bacon'
+    to_escape = API.escape(to)
+    #options are pre-determined by API call
+    option = (1)
+    # 1 includes movies, 3 includes movies and tv
 
-def bacon
-  from = 'Tina Turner'
-  from_escape = CGI::escape(from)
-  to = 'Kevin Bacon'
-  to_escape = CGI::escape(to)
-  #options are pre-determined by API call
-  option = (1)
-  # 1 includes movies, 3 includes movies and tv
-
-  #uri = URI.parse("http://oracleofbacon.org/cgi-bin/xml?a=#{from}&b=#{to}&u=#{option}&p=google-apps")
-  #response = Net::HTTP.get(uri)
-  response = open("http://oracleofbacon.org/cgi-bin/xml?a=#{from_escape}&b=#{to_escape}&u=#{option}&p=google-apps").read
-
-  puts response
-
+    response = API.fetch(from_escape, to_escape, option)
+    #parsed_response = REXML::Document.new(response)
+    return response
+  end
 end
 
-bacon
+puts Oracle.degrees
