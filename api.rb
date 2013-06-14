@@ -17,8 +17,20 @@ class API
   end
 
 # This method checks if you spelled the actors name right
-  def spellcheck?(response)
-    return
+  def self.spellcheck?(response)
+    parsed_response = Nokogiri::XML(response)
+    # This next line tries to pull spellcheck elements out the XML file
+    spellchecks = parsed_response.xpath("//spellcheck/match")
+    spellcheck_options = []
+    spellchecks.each do |spellcheck|
+      spellcheck_options << spellcheck.text
+    end
+    # Checking to see if this is a spellcheck call
+    if spellcheck_options == []
+      return false
+    else
+      return spellcheck_options
+    end
   end
 
 # This parses our XML
@@ -44,3 +56,4 @@ class API
     return response
   end
 end
+
