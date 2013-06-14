@@ -1,4 +1,4 @@
-# Handles API call
+# Handles API call, return formatted niceness
 require 'pp'
 require 'nokogiri'
 require 'open-uri'
