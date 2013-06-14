@@ -13,8 +13,12 @@ class ORACLE
     actor2_escaped = API.escape(@actor2)
     response = API.fetch(actor1_escaped, actor2_escaped, @option)
     if API.spellcheck?(response) == false
-      # UI.display(API.parse(response))
-      puts API.parse(response)
+      UI.display(API.parse(response))
+    else
+      spellcheck_options = API.spellcheck?(response)
+      spellcheck_options.take(5).each do |option|
+        UI.display(option)
+      end
     end
   end
 
@@ -28,25 +32,25 @@ class ORACLE
     @actor2 = UI.get
     UI.display("Possible options:")
     UI.display("Option One{1} = only movies")
-    UI.display("Option Two{2} = we don't know yet")
+    UI.display("Option Two{2} = only television")
     UI.display("Option Three{3} = movies and television")
     @option = UI.get
   end
 
   #Get rid of this at some point... really
-  def self.degrees
-    from = 'Kevin Cost'
-    from_escape = API.escape(from)
-    to = 'Kevin Bacon'
-    to_escape = API.escape(to)
-    #options are pre-determined by API call
-    option = (1)
-    # 1 includes movies, 3 includes movies and tv
+  # def self.degrees
+  #   from = 'Kevin Cost'
+  #   from_escape = API.escape(from)
+  #   to = 'Kevin Bacon'
+  #   to_escape = API.escape(to)
+  #   #options are pre-determined by API call
+  #   option = (1)
+  #   # 1 includes movies, 3 includes movies and tv
 
-    response = API.fetch(from_escape, to_escape, option)
-    #parsed_response = REXML::Document.new(response)
-    return response
-  end
+  #   response = API.fetch(from_escape, to_escape, option)
+  #   #parsed_response = REXML::Document.new(response)
+  #   return response
+  # end
 end
 
 ORACLE.run
