@@ -9,16 +9,23 @@ class ORACLE
   #This method is the runner method for the program, it escapes variables and makes calls
   def self.run
     opening_sequence
+    UI.calculating
+    UI.display('')
     actor1_escaped = API.escape(@actor1)
     actor2_escaped = API.escape(@actor2)
     response = API.fetch(actor1_escaped, actor2_escaped, @option)
-    if API.spellcheck?(response) == false
+    spellcheck = API.spellcheck?(response)
+    if spellcheck == false
       UI.display(API.parse(response))
+      UI.display('')
     else
-      spellcheck_options = API.spellcheck?(response)
-      spellcheck_options.take(5).each do |option|
-        UI.display(option)
-      end
+      UI.display('Something is wrong, which of the following actors did you mean?')
+      #all this shit needs to be fixed.
+      # UI.display_options(spellcheck)
+      # option_selected = UI.get.to_i
+      # actor1_escaped = API.escape(spellcheck[option_selected + 1])
+      # response = API.fetch(actor1_escaped, actor2_escaped, @option)
+      # UI.display(API.parse(response))
     end
   end
 
@@ -26,9 +33,9 @@ class ORACLE
   def self.opening_sequence
     UI.display("Welcome to Oracle of Bacon.")
     UI.display("Please enter two actors.")
-    UI.display("Actor One?:")
+    UI.display_print("Actor One?:")
     @actor1 = UI.get
-    UI.display("Actor Two?:")
+    UI.display_print("Actor Two?:")
     @actor2 = UI.get
     UI.display("Possible options:")
     UI.display("Option One{1} = only movies")
